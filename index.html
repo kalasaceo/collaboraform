@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polling Form</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Include your custom CSS file here -->
+  <style>
+    body {
+      font-family: Segoe UI;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .brand-images {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .brand-image {
+      max-width: 100px;
+      margin: 0 10px;
+    }
+
+    .brand-image img {
+      max-width: 100%;
+    }
+
+    .x-divider {
+      font-size: 24px;
+      margin: 0 10px;
+    }
+
+    .question {
+      display: none;
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .question.active {
+      display: block;
+      animation: fade-in 0.5s ease;
+    }
+
+    .question-text {
+      font-weight: 528;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: left;
+    }
+
+    .option {
+      font-family: Segoe UI;
+      font-weight: 400;
+      color:#0445AF;
+      display: flex;
+      align-items: left;
+      justify-content: left;
+      margin: 0 10px;
+      border: 2px solid #2861e8;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .option:hover, .option.selected {
+      background-color: #a2d6f9;
+      border-color: #2861e8;
+    }
+
+    .option span {
+      margin-right: 5px;
+    }
+
+    .tick {
+      font-size: 24px; /* Adjust the font size as needed */
+      line-height: 1; /* Ensure the line height matches the font size */
+    }
+
+    .next-button {
+      display: none;
+      margin-top: 20px;
+      font-size: 20px;
+      background-color: #2861e8;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .next-button:hover {
+      background-color: #0079c1;
+    }
+
+    .powered-by {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-weight: bold;
+      font-size: 16px;
+      background-color: #2861e8;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background-color: #dddddd;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      background-color: #2861e8;
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+
+    .thank-you {
+      display: none;
+      text-align: center;
+      font-weight: 370;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+      <div class="brand-images">
+        <div class="brand-image">
+          <img src="brand1.png" alt="Brand Image 1">
+        </div>
+        <div class="x-divider">X</div>
+        <div class="brand-image">
+          <img src="brand2.png" alt="Brand Image 2">
+        </div>
+      </div>
+    </div>
+    <div class="question active" id="question1">
+      <p class="question-text">1&#8594; Does the Party Which initiates the Partnership Proposal at loss of Upperhand or Negotiation in some way?</p>
+      <div class="options">
+        <ul>
+        <div class="option" onclick="selectOption(this)"><span>A.</span> Completely Disagree</div>
+        <div class="option" onclick="selectOption(this)"><span>B.</span> Somewhat Agree</div>
+        <div class="option" onclick="selectOption(this)"><span>C.</span> Somewhat Disagree</div>
+        <div class="option" onclick="selectOption(this)"><span>D.</span> Depends on the Brand Image of both Parties</div>
+      </ul>
+      </div>
+    </div>
+    <div class="question" id="question2">
+      <p class="question-text">2&#8594; Is verbal Agreement among Founders or other Executives enough for facilitating long-term partnership?</p>
+      <div class="options">
+        <ul>
+        <div class="option" onclick="selectOption(this)"><span>A.</span> Definitely not</div>
+        <div class="option" onclick="selectOption(this)"><span>B.</span> Yes in most Cases</div>
+        <div class="option" onclick="selectOption(this)"><span>C.</span> Depends on resources shared</div>
+        <div class="option" onclick="selectOption(this)"><span>D.</span> Not experienced this yet</div>
+      </ul>
+      </div>
+    </div>
+
+    <button class="next-button" onclick="nextQuestion()"><span class="tick">OK &#10004;</span></button>
+
+    <div class="powered-by" onclick="openSharkdom()">
+       Powered by <b>Sharkdom</b>
+    </div>
+
+    <div class="thank-you" id="thankYouMessage">
+      Appreciate OVHCloud users for porvising Sharkdomers Feedback. As token of Appreciation, We would be providing free 7 days trial to OVHCloud users using email you used to submit this Form!
+    </div>
+
+  </div>
+
+  <script>
+    const questions = document.querySelectorAll('.question');
+    const options = document.querySelectorAll('.option');
+    const nextButton = document.querySelector('.next-button');
+    const progressBar = document.querySelector('.progress');
+    const thankYouMessage = document.querySelector('#thankYouMessage');
+    let currentQuestion = 0;
+    const totalQuestions = questions.length;
+
+    function selectOption(option) {
+      options.forEach((opt) => {
+        opt.classList.remove('selected');
+      });
+
+      option.classList.add('selected');
+      nextButton.style.display = 'block';
+    }
+
+    function nextQuestion() {
+      questions[currentQuestion].classList.remove('active');
+      currentQuestion++;
+
+      if (currentQuestion < totalQuestions) {
+        questions[currentQuestion].classList.add('active');
+        nextButton.style.display = 'none';
+        updateProgressBar();
+      } else {
+        submitForm();
+      }
+    }
+
+    function updateProgressBar() {
+      const progressPercentage = ((currentQuestion + 1) / totalQuestions) * 100;
+      progressBar.style.width = progressPercentage + '%';
+    }
+
+    function submitForm() {
+      progressBar.style.width = '100%';
+      thankYouMessage.style.display = 'block';
+      nextButton.style.display = 'none';
+    }
+     function openSharkdom() {
+      window.open('https://sharkdom.com', '_blank');
+    }
+    questions[currentQuestion].classList.add('active');
+    updateProgressBar();
+  </script>
+</body>
+</html>
