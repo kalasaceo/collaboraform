@@ -151,14 +151,59 @@
       font-size: 20px;
       margin-top: 20px;
     }
+
+    .input-option {
+      font-family: Segoe UI;
+      font-weight: 400;
+      color: #0445AF;
+      display: flex;
+      align-items: left;
+      justify-content: left;
+      margin: 0 10px;
+      border: 2px solid #2861e8;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      width: 100%;
+      resize: vertical;
+      background-color: #eaf2f8;
+    }
+     .input-option2 {
+      font-family: Segoe UI;
+      font-weight: 400;
+      color: #0445AF;
+      align-items: left;
+      justify-content: left;
+      margin: 0 10px;
+      border: 2px solid #2861e8;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 12px;
+      width: 40%;
+      height: 10%;
+      background-color: #eaf2f8;
+    }
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .typewriter-container {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 1px solid #000;
+    }
+    .typewriter-text {
+      display: inline-block;
+      animation: typewriter 2s steps(49);
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <div class="progress-bar">
-      <div class="progress"></div>
-    </div>
+        <div class="progress"></div>
+      </div>
       <div class="brand-images">
         <div class="brand-image">
           <img src="brand1.png" alt="Brand Image 1">
@@ -170,40 +215,52 @@
       </div>
     </div>
     <div class="question active" id="question1">
+      <p><b>form shared by startupA to StartupB users</b></p>
       <p class="question-text">1&#8594; Does the Party Which initiates the Partnership Proposal at loss of Upperhand or Negotiation in some way?</p>
       <div class="options">
         <ul>
-        <div class="option" onclick="selectOption(this)"><span>A.</span> Completely Disagree</div>
-        <div class="option" onclick="selectOption(this)"><span>B.</span> Somewhat Agree</div>
-        <div class="option" onclick="selectOption(this)"><span>C.</span> Somewhat Disagree</div>
-        <div class="option" onclick="selectOption(this)"><span>D.</span> Depends on the Brand Image of both Parties</div>
-      </ul>
+          <div class="option" onclick="selectOption(this)"><span>A.</span> Completely Disagree</div>
+          <div class="option" onclick="selectOption(this)"><span>B.</span> Somewhat Agree</div>
+          <div class="option" onclick="selectOption(this)"><span>C.</span> Somewhat Disagree</div>
+          <div class="option" onclick="selectOption(this)"><span>D.</span> Depends on the Brand Image of both Parties</div>
+        </ul>
       </div>
     </div>
     <div class="question" id="question2">
       <p class="question-text">2&#8594; Is verbal Agreement among Founders or other Executives enough for facilitating long-term partnership?</p>
       <div class="options">
         <ul>
-        <div class="option" onclick="selectOption(this)"><span>A.</span> Definitely not</div>
-        <div class="option" onclick="selectOption(this)"><span>B.</span> Yes in most Cases</div>
-        <div class="option" onclick="selectOption(this)"><span>C.</span> Depends on resources shared</div>
-        <div class="option" onclick="selectOption(this)"><span>D.</span> Not experienced this yet</div>
-      </ul>
+          <div class="option" onclick="selectOption(this)"><span>A.</span> Definitely not</div>
+          <div class="option" onclick="selectOption(this)"><span>B.</span> Yes in most Cases</div>
+          <div class="option" onclick="selectOption(this)"><span>C.</span> Depends on resources shared</div>
+          <div class="option" onclick="selectOption(this)"><span>D.</span> Not experienced this yet</div>
+        </ul>
       </div>
     </div>
-
+    <div class="question" id="question3">
+      <p class="question-text">3&#8594; How do you think Our Platform should improvise in order to maintain transparency and open communication between both partnered startups?</p>
+      <div class="options">
+        <textarea class="input-option" id="inputOption" placeholder="Type your answer here..." rows="3"></textarea>
+      </div>
+    </div>
+     <div class="question" id="question4">
+      <p class="question-text">4&#8594; Share your email to get Free 30-days Trial and other Offers in our platform as a gesture of Partnering with Startup B?</p>
+      <div class="options">
+        <textarea class="input-option2" id="inputOption2" placeholder="sharkdomer@startupb@gmail.com" rows="1"></textarea>
+      </div>
+    </div>
     <button class="next-button" onclick="nextQuestion()"><span class="tick">OK &#10004;</span></button>
-
     <div class="powered-by" onclick="openSharkdom()">
        Powered by <b>Sharkdom</b>
     </div>
-
     <div class="thank-you" id="thankYouMessage">
-      Appreciate OVHCloud users for porvising Sharkdomers Feedback. As token of Appreciation, We would be providing free 7 days trial to OVHCloud users using email you used to submit this Form!
-    </div>
-
+      Appreciate OVHCloud users for providing Sharkdomers Feedback. As a token of appreciation, we would be providing a free 7-day trial to OVHCloud users using the email you used to submit this form!
+      <br><br><br><br>
+      <div class="typewriter-container">
+        <a class="typewriter-text" href="https://youtube.com" style="color: blue; text-decoration: underline;">Visit our Website at www.startupA.com</a>
   </div>
-
+    </div>
+  </div>
   <script>
     const questions = document.querySelectorAll('.question');
     const options = document.querySelectorAll('.option');
@@ -243,10 +300,40 @@
     function submitForm() {
       progressBar.style.width = '100%';
       thankYouMessage.style.display = 'block';
+
       nextButton.style.display = 'none';
     }
-     function openSharkdom() {
+
+    function openSharkdom() {
       window.open('https://sharkdom.com', '_blank');
+    }
+
+    const inputOption = document.querySelector('#inputOption');
+    inputOption.addEventListener('input', function() {
+      if (inputOption.value.length > 5) {
+        nextButton.style.display = 'block';
+      } else {
+        nextButton.style.display = 'none';
+      }
+      if (inputOption.value.length > 100) {
+        inputOption.value = inputOption.value.substring(0, 100);
+      }
+    });
+
+    const inputOption2 = document.querySelector('#inputOption2');
+    inputOption2.addEventListener('input', function() {
+      if (inputOption2.value.length > 5) {
+        nextButton.style.display = 'block';
+      } else {
+        nextButton.style.display = 'none';
+      }
+      if (inputOption2.value.length > 100) {
+        inputOption2.value = inputOption.value.substring(0, 100);
+      }
+    });
+     function x() {
+      var typewriterText = document.querySelector('.typewriter-text');
+      typewriterText.style.animation = 'typewriter 5s steps(40) infinite';
     }
     questions[currentQuestion].classList.add('active');
     updateProgressBar();
